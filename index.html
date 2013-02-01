@@ -16,12 +16,14 @@
         <div class="span2">
             <table class="table" data-bind="foreach: notes">
                 <tr>
-                    <td data-bind="text: title"></td>
+                    <td data-bind="text: title, click: $parent.click"></td>
                 </tr>
             </table>
         </div>
         <div class="span10">
-            <!--Body content-->
+            <div>
+                <button data-bind="click: save, enable: isSaveEnabled" >Save</button>
+            </div>
         </div>
     </div>
 </div>
