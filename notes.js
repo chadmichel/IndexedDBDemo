@@ -1,28 +1,25 @@
 var Notes;
 (function (Notes) {
 
-    var Note = (function () {
-        function Note(title) {
-            this.title = title;
+    Notes.Note = function (title) {
+        this.title = title;            
+    }
+
+    Notes.NotesVM = function () {        
+        var self = this;
+    
+        self.notes = ko.observableArray([
+            new Note("Do Something"),
+            new Note("Another note"),
+            new Note("yet another")
+        ]);
+        
+        self.click = function() {
+            alert('click');    
         }
-
-        return Note;
-    })();
-
-
-    var NotesVM = (function () {
-        function NotesVM() {
-            this.notes = ko.observableArray([
-                new Note("Do Something"),
-                new Note("Another note"),
-                new Note("yet another")
-            ]);
-        }
-
-        return NotesVM;
-    })();
-
-    Notes.NotesVM = NotesVM;
+        
+        self.isSaveEnabled = ko.observable(true);                            
+    };
 
 })(Notes || (Notes = {}));
 
