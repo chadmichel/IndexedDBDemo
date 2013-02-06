@@ -22,7 +22,18 @@
         </div>
         <div class="span10">
             <div>
+                <button data-bind="click: create, enable: isNewEnabled" >Create</button>
                 <button data-bind="click: save, enable: isSaveEnabled" >Save</button>
+            </div>
+
+            <div>
+
+                <fieldset>
+                    <label for="titleText">Title</label>
+                    <input type="text" data-bind="value: activeTitle" />
+                    <label for="bodyText">Body</label>
+                    <input type="text" data-bind="value: activeBody" />
+                </fieldset>
             </div>
         </div>
     </div>

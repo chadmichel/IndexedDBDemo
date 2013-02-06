@@ -1,24 +1,35 @@
 var Notes;
 (function (Notes) {
 
-    Notes.Note = function (title) {
-        this.title = title;            
+    Notes.Note = function (title, body) {
+        this.title = title;
+        this.body = body;
     }
 
     Notes.NotesVM = function () {        
         var self = this;
-    
+
+        self.activeTitle = ko.observable("title");
+        self.activeBody = ko.observable("body");
+
         self.notes = ko.observableArray([
-            new Note("Do Something"),
-            new Note("Another note"),
-            new Note("yet another")
+            new Notes.Note("Do Something"),
+            new Notes.Note("Another note"),
+            new Notes.Note("yet another")
         ]);
         
-        self.click = function() {
+        self.save = function() {
             alert('click');    
         }
+
+        self.create = function() {
+            self.activeTitle("");
+            self.activeBody("");
+        }
         
-        self.isSaveEnabled = ko.observable(true);                            
+        self.isSaveEnabled = ko.observable(false);
+
+        self.isNewEnabled = ko.observable(true);
     };
 
 })(Notes || (Notes = {}));
