@@ -10,64 +10,11 @@
 
 <script src="tiny_mce/tiny_mce.js"></script>
 <script src="tiny_mce/jquery.tinymce.js"></script>
+<script src="javascripts/tinymcebinding.js"></script>
 
 <link href="stylesheets/style.css" rel="stylesheet" />
 
 <script src="javascripts/notes.js"></script>
-
-<script>
-
-
-ko.bindingHandlers.tinymce = {
-
-    init: function(element, valueAccessor, allBindingsAccessor) {
-
-            var options = allBindingsAccessor().tinymceOptions || {};
-            var modelValue = valueAccessor();
-
-            //handle edits made in the editor
-            options.setup = function(ed) {
-                ed.onChange.add(function(ed, l) {
-                    if (ko.isWriteableObservable(modelValue)) {
-                       modelValue(l.content);
-                    }
-                });
-            };
-
-            //handle destroying an editor (based on what jQuery plugin does)
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                $(element).parent().find("span.mceEditor,div.mceEditor").each(function(i, node) {
-                    var ed = tinyMCE.get(node.id.replace(/_parent$/, ""));
-                    if (ed) {
-                        ed.remove();
-                    }
-                });
-            });
-
-
-            $(element).tinymce(options);
-
-        },
-
-    //update the control when the view model changes
-    update: function(element, valueAccessor) {
-        var value = ko.utils.unwrapObservable(valueAccessor());
-        $(element).html(value);
-    }
-};
-
-$(function() {
-
-
-        //$('#noteBody').tinymce({
-        //    // Location of TinyMCE script
-        //    script_url : 'tiny_mce/tiny_mce.js'
-        //});
-
-    });
-
-
-</script>
 
 </head>
 
