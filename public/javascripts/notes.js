@@ -16,9 +16,9 @@ var Notes;
         self.createMode = ko.observable(true);
 
         self.notes = ko.observableArray([
-            new Notes.Note("Do Something"),
-            new Notes.Note("Another note"),
-            new Notes.Note("yet another")
+            new Notes.Note("Do Something", "b1"),
+            new Notes.Note("Another note", "b2"),
+            new Notes.Note("yet another", "b3")
         ]);
 
         self.isSaveEnabled = ko.computed(function() {
@@ -51,6 +51,7 @@ var Notes;
             self.active = note;
             self.activeTitle(note.title());
             self.activeBody(note.body());
+            //$("#noteBody").html("hello");
         }
         
     };
