@@ -40,9 +40,9 @@
                 <fieldset>
 
                     <label for="titleText">Title</label>
-                    <input id="noteTitle" type="text" data-bind="value: activeTitle" />
+                    <input id="noteTitle" type="text" data-bind="value: activeTitle, valueUpdate:'afterkeydown'" />
                     <label for="bodyText">Body</label>
-                    <textarea id="noteBody" class="tinymce" data-bind="tinymce: activeBody, tinymceOptions: { theme: 'advanced' }" />
+                    <textarea id="noteBody" class="tinymce" data-bind="tinymce: activeBody, tinymceOptions: { theme: 'simple' }" />
 
                 </fieldset>
             </div>

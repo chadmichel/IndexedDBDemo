@@ -2,7 +2,11 @@ var Notes;
 (function (Notes) {
 
     Notes.Note = function (title, body) {
+        if (title == null)
+            title = "";            
         this.title = ko.observable(title);
+        if (body == null)
+            body = "";
         this.body = ko.observable(body);
     }
 
@@ -15,14 +19,11 @@ var Notes;
         self.activeBody = ko.observable("");
         self.createMode = ko.observable(true);
 
-        self.notes = ko.observableArray([
-            new Notes.Note("Do Something", "b1"),
-            new Notes.Note("Another note", "b2"),
-            new Notes.Note("yet another", "b3")
+        self.notes = ko.observableArray([           
         ]);
 
         self.isSaveEnabled = ko.computed(function() {
-            return (self.active.title != self.activeTitle() || self.active.body != self.activeBody());
+            return (self.active.title() != self.activeTitle() || self.active.body() != self.activeBody());
         }, self);
 
         self.isNewEnabled = ko.computed(function() {
@@ -34,6 +35,8 @@ var Notes;
                 var note = new Notes.Note(self.activeTitle(), self.activeBody());
                 self.notes.push(note);
                 self.createMode(false);
+                self.active.title(self.activeTitle());
+                self.active.body(self.activeBody());                
             }
             else {
                 self.active.title(self.activeTitle());
@@ -42,6 +45,7 @@ var Notes;
         }
 
         self.create = function() {
+            self.active = new Notes.Note();
             self.activeTitle("");
             self.activeBody("");
             self.createMode(true);
@@ -50,8 +54,7 @@ var Notes;
         self.load = function(note) {
             self.active = note;
             self.activeTitle(note.title());
-            self.activeBody(note.body());
-            //$("#noteBody").html("hello");
+            self.activeBody(note.body());            
         }
         
     };

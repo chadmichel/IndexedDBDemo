@@ -14,6 +14,11 @@ ko.bindingHandlers.tinymce = {
                     modelValue(l.content);
                 }
             });
+            ed.onKeyUp.add(function(ed, l) {
+               if (ko.isWriteableObservable(modelValue)) {
+                    modelValue(l.content);
+                }
+            });
         };
 
         //handle destroying an editor (based on what jQuery plugin does)
