@@ -10,8 +10,11 @@ var Notes;
         this.body = ko.observable(body);
     }
 
-    Notes.NotesVM = function () {        
+    Notes.NotesVM = function (queryEngine, commandEngine) {        
         var self = this;
+
+        self.queryEngine = queryEngine;
+        self.commandEngine = commandEngine;
 
         self.active = new Notes.Note();
 
@@ -42,30 +45,23 @@ var Notes;
                 self.active.title(self.activeTitle());
                 self.active.body(self.activeBody());
             }
-        }
+        };
 
         self.create = function() {
             self.active = new Notes.Note();
             self.activeTitle("");
             self.activeBody("");
             self.createMode(true);
-        }
+        };
 
         self.load = function(note) {
             self.active = note;
             self.activeTitle(note.title());
             self.activeBody(note.body());            
-        }
+        };
         
     };
 
 
 })(Notes || (Notes = {}));
 
-$(function() {
-
-    var vm = new Notes.NotesVM();
-
-    ko.applyBindings(vm);
-
-});

@@ -13,7 +13,38 @@ if (!window.indexedDB) {
 
 var IndexedDbAccessor ;
 (function (IndexedDbAccessor) {
+
+    var request = window.indexedDB.open("ChadsNotes");
+
+    request.onupgradeneeded = function(event) {
+        var db = event.target.result;
+        
+        var objectStore = db.createObjectStore("history", { keyPath: "id" });
+        
+    }
+
+    request.onerror = function(event) {
+        // Do something with request.errorCode!
+        alert(event);
+    };
+    request.onsuccess = function(event) {
+        // Do something with request.result!
+    };
     
-    
+    IndexedDbAccessor.HistoryAccessor = function() {    
+        var self = this;          
+        
+        self.getAll = function() {
+
+          
+        };
+        
+    };
+
+    IndexedDbAccessor.NotesAccessor = function() {    
+        var self = this;
+    };
     
 })(IndexedDbAccessor || (IndexedDbAccessor = {}));
+
+
