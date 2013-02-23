@@ -12,37 +12,60 @@ if (!window.indexedDB) {
 }
 
 var IndexedDbAccessor ;
-(function (IndexedDbAccessor) {
-
-    var request = window.indexedDB.open("ChadsNotes");
-
-    request.onupgradeneeded = function(event) {
-        var db = event.target.result;
+(function (IndexedDbAccessor) {    
+    
+    IndexedDbAccessor.db = null;
+    
+    IndexedDbAccessor.open = function(ready) {
         
-        var objectStore = db.createObjectStore("history", { keyPath: "id" });
+        var request = window.indexedDB.open("ChadsNotes", 5);      
+        
+        request.onupgradeneeded = function(event) {
+            
+            alert("upgrade");
+            
+            var db = event.target.result;
+            IndexedDbAccessor.db = db;
+            
+            var historyStore = db.createObjectStore("history", { keyPath: "id" });
+            historyStore.createIndex("date", "date", { unique: false });
+            historyStore.createIndex("noteId", "noteid", { unique: false });
+            
+            var notesStore = db.createObjectStore("notes", { keyPath: "id" });
+            notesStore.createIndex("date", "date", { unique: false });
+        }
+    
+        request.onerror = function(event) {
+            // Do something with request.errorCode!
+            alert(event);
+        };
+        request.onsuccess = function(event) {
+            // Do something with request.result!
+            IndexedDbAccessor.db = event.target.result;
+            ready();
+        };
         
     }
-
-    request.onerror = function(event) {
-        // Do something with request.errorCode!
-        alert(event);
-    };
-    request.onsuccess = function(event) {
-        // Do something with request.result!
-    };
     
     IndexedDbAccessor.HistoryAccessor = function() {    
         var self = this;          
         
         self.getAll = function() {
 
-          
+            
         };
         
     };
 
     IndexedDbAccessor.NotesAccessor = function() {    
         var self = this;
+        var store_name = "notes";
+        
+        self.put = function(note) {
+            var tx = IndexedDbAccessor.db.transaction(store_name, "readwrite");
+            var store = tx.objectStore(store_name);
+            store.put(note);
+        }
     };
     
 })(IndexedDbAccessor || (IndexedDbAccessor = {}));
