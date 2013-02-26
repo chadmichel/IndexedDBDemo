@@ -86,31 +86,55 @@ var IndexedDbAccessor ;
             }
         };
         
-        self.getAll = function(callback) {
-            if (callback == null)
-                return;
-                
+        self.forEach = function(callback, itemCallback) {
+            
             var tx = IndexedDbAccessor.db.transaction(store_name, "readwrite");
             var store = tx.objectStore(store_name);            
-            var result = new Array();
             
             var req = store.openCursor();
             req.onsuccess = function(event) {
-                if (event != null && event.target != null) {
+                if (event !== null && event.target !== null) {
                     var cursor = event.target.result;
-                    if (cursor != null) {
-                        result.push(cursor.value)
+                    if (cursor !== null) {
+                        if (itemCallback !== null)
+                            itemCallback(cursor);
                         cursor.continue();
                     }
                     else {
-                        callback(null, result);
+                        if (callback !== null)
+                            callback(null);
                     }
                 }
-            }
-            req.onerror = function(event) {                
-                callback(event);
-            }
+            };
+            req.onerror = function(event) {  
+                if (callback !== null)
+                    callback(event);
+            };
+        };
+
+        self.getAll = function(callback) {
+            if (callback === null)
+                return;
+            
+            var result = [];
+            
+            self.forEach(
+                function(err) {
+                    callback(err, result);    
+                },
+                function(cursor) {
+                    result.push(cursor.value);
+                }               
+            );                        
         }
+        
+        self.removeAll = function(callback) {            
+            self.forEach(function(cursor) {
+                cursor.remove();
+            });                
+        }
+        
+        
     };
     
 })(IndexedDbAccessor || (IndexedDbAccessor = {}));
