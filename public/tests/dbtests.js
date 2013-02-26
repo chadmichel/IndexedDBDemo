@@ -22,15 +22,32 @@ asyncTest("indexdbaccessor open", function() {
 
 asyncTest("indexdbaccessor put", function() {
    
-   var note = { id: guid(), title: "hi", body: "body" }
+   var note = { id: UUID.generate(), title: "hi", body: "body" }
    
    IndexedDbAccessor.open(function () {       
              
-       var notesAccessor = new IndexedDbAccessor.NotesAccessor();
-       notesAccessor.put(note);
+        var notesAccessor = new IndexedDbAccessor.NotesAccessor();
+        notesAccessor.put(note, function(err) {
+            ok(err == null);
+            start();
+        });        
+   });             
+});
 
-   });
-      
-   expect(0);
-    
+
+asyncTest("indexdbaccessor getall", function() {
+   
+   var note = { id: UUID.generate(), title: "hi", body: "body" }
+   
+   IndexedDbAccessor.open(function () {       
+             
+        var notesAccessor = new IndexedDbAccessor.NotesAccessor();
+        notesAccessor.put(note, function(err) {
+            notesAccessor.getAll(function(err, result) {                
+                ok(err == null);
+                start();
+            })
+            
+        });        
+   });             
 });
