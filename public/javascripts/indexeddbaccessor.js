@@ -23,39 +23,48 @@ var IndexedDbAccessor ;
     
     IndexedDbAccessor.open = function(ready) {
         
-        var request = window.indexedDB.open(IndexedDbAccessor.dbName, 2);      
-        
-        request.onupgradeneeded = function(event) {
-
-            var db = event.target.result;
-            IndexedDbAccessor.db = db;
-
-            if (event.oldVersion <= 1) {
-                
-                var historyStore = db.createObjectStore("history", { keyPath: "id" });
-                historyStore.createIndex("date", "date", { unique: false });
-                historyStore.createIndex("noteId", "noteid", { unique: false });
-                
-                var notesStore = db.createObjectStore("notes", { keyPath: "id" });
-                notesStore.createIndex("date", "date", { unique: false });
-            }
-
-            if (event.oldVersion <= 1) {
-                var settingsStore = db.createObjectStore("settings", { keyPath: "key" });                            
-            }
-        };
+        if (IndexedDbAccessor.db === null) {
+            var request = window.indexedDB.open(IndexedDbAccessor.dbName, 2);      
+            
+            request.onupgradeneeded = function(event) {
     
-        request.onerror = function(event) {
-            // Do something with request.errorCode!
-            alert(event);
-        };
-        request.onsuccess = function(event) {
-            // Do something with request.result!
-            IndexedDbAccessor.db = event.target.result;
-            ready();
-        };
+                var db = event.target.result;
+                IndexedDbAccessor.db = db;
+    
+                if (event.oldVersion <= 1) {
+                    
+                    var historyStore = db.createObjectStore("history", { keyPath: "id" });
+                    historyStore.createIndex("date", "date", { unique: false });
+                    historyStore.createIndex("noteId", "noteid", { unique: false });
+                    
+                    var notesStore = db.createObjectStore("notes", { keyPath: "id" });
+                    notesStore.createIndex("date", "date", { unique: false });
+                }
+    
+                if (event.oldVersion <= 1) {
+                    var settingsStore = db.createObjectStore("settings", { keyPath: "key" });                            
+                }
+            };
         
+            request.onerror = function(event) {
+                // Do something with request.errorCode!
+                alert(event);
+            };
+            request.onsuccess = function(event) {
+                // Do something with request.result!
+                IndexedDbAccessor.db = event.target.result;
+                ready();            
+            };
+        }
+                
     }
+    
+    IndexedDbAccessor.close = function() {
+        if (IndexedDbAccessor.db !== null) {
+            IndexedDbAccessor.db.close();
+            IndexedDbAccessor.db = null;
+        }
+    };
     
     IndexedDbAccessor.HistoryAccessor = function() {    
         var self = this;          

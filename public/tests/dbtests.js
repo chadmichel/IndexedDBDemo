@@ -14,6 +14,7 @@ asyncTest("indexdbaccessor open", function() {
       
    var notesAccessor = IndexedDbAccessor.open(function () {       
         start();
+        IndexedDbAccessor.close();
    });
    
    expect(0);
@@ -30,6 +31,7 @@ asyncTest("indexdbaccessor put", function() {
         notesAccessor.put(note, function(err) {
             ok(err == null);
             start();
+            IndexedDbAccessor.close();
         });        
    });             
 });
@@ -46,6 +48,7 @@ asyncTest("indexdbaccessor getAll", function() {
             notesAccessor.getAll(function(err, result) {                
                 ok(err == null);
                 start();
+                IndexedDbAccessor.close();
             })
             
         });        
@@ -63,6 +66,7 @@ asyncTest("indexdbaccessor removeAll", function() {
             notesAccessor.removeAll(function(err) {                
                 ok(err == null);
                 start();
+                IndexedDbAccessor.close();
             });            
         });        
    });             
