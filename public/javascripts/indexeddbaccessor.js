@@ -76,7 +76,7 @@ var IndexedDbAccessor ;
             var store = tx.objectStore(store_name);
             var req = store.put(note);
             
-            if (callback != null) {
+            if (callback !== null) {
                 req.onsuccess = function(event) {
                     callback();
                 }
@@ -129,9 +129,14 @@ var IndexedDbAccessor ;
         }
         
         self.removeAll = function(callback) {            
-            self.forEach(function(cursor) {
-                cursor.remove();
-            });                
+            self.forEach(
+                function(err) {
+                    callback(err);
+                },
+                function(cursor) {
+                    cursor.delete();
+                }
+            );                
         }
         
         

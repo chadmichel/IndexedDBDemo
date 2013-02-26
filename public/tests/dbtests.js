@@ -35,7 +35,7 @@ asyncTest("indexdbaccessor put", function() {
 });
 
 
-asyncTest("indexdbaccessor getall", function() {
+asyncTest("indexdbaccessor getAll", function() {
    
    var note = { id: UUID.generate(), title: "hi", body: "body" }
    
@@ -51,3 +51,20 @@ asyncTest("indexdbaccessor getall", function() {
         });        
    });             
 });
+
+asyncTest("indexdbaccessor removeAll", function() {
+   
+   var note = { id: UUID.generate(), title: "hi", body: "body" }
+   
+   IndexedDbAccessor.open(function () {       
+             
+        var notesAccessor = new IndexedDbAccessor.NotesAccessor();
+        notesAccessor.put(note, function(err) {
+            notesAccessor.removeAll(function(err) {                
+                ok(err == null);
+                start();
+            });            
+        });        
+   });             
+});
+
