@@ -4,6 +4,14 @@ CACHE MANIFEST
 
 CACHE:
 /guid.js
+/javascripts/guid.js
+/javascripts/simplestore.js
+/javascripts/indexeddbaccessor.js
+/javascripts/localqueryengine.js
+/javascripts/localcommandengine.js
+/javascripts/notes.js
+/javascripts/init.js
+
 
 http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js
 
