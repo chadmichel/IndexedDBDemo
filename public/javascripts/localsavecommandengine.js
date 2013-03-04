@@ -1,7 +1,7 @@
-var LocalCommandEngine;
+var LocalSaveCommandEngine;
 (function (LocalCommandEngine) {
     
-    LocalCommandEngine.Engine = function() {
+    LocalSaveCommandEngine.Engine = function() {
         var self = this;
     
         self.Put = function(data) {
@@ -12,4 +12,4 @@ var LocalCommandEngine;
     
     }
     
-})(LocalCommandEngine || (LocalCommandEngine = {}));
+})(LocalSaveCommandEngine || (LocalSaveCommandEngine = {}));

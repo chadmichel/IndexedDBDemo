@@ -1,7 +1,10 @@
 var Notes;
 (function (Notes) {
 
-    Notes.Note = function (title, body) {
+    Notes.Note = function (id, title, body) {
+        if (id == null)
+            id = UUID.generate();            
+        this.id = ko.observable(id);
         if (title == null)
             title = "";            
         this.title = ko.observable(title);
@@ -10,11 +13,11 @@ var Notes;
         this.body = ko.observable(body);
     }
 
-    Notes.NotesVM = function (queryEngine, commandEngine) {        
+    Notes.NotesVM = function (queryEngine, saveCommandEngine) {        
         var self = this;
 
         self.queryEngine = queryEngine;
-        self.commandEngine = commandEngine;
+        self.saveCommandEngine = saveCommandEngine;
 
         self.active = new Notes.Note();
 
@@ -35,8 +38,8 @@ var Notes;
 
         self.save = function() {
             if (self.createMode()) {
-                var note = new Notes.Note(self.activeTitle(), self.activeBody());
-                self.notes.push(note);
+                var note = new Notes.Note(null, self.activeTitle(), self.activeBody());
+                self.notes.push(note);                
                 self.createMode(false);
                 self.active.title(self.activeTitle());
                 self.active.body(self.activeBody());                
@@ -45,6 +48,11 @@ var Notes;
                 self.active.title(self.activeTitle());
                 self.active.body(self.activeBody());
             }
+            self.saveCommandEngine.Put({
+                id: self.active.id(),
+                title: self.active.title(),
+                body: self.active.body()    
+            });
         };
 
         self.create = function() {

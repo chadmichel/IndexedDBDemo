@@ -32,6 +32,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+app.get("/offline1.appcache", function(req, res){
+  res.header("Content-Type", "text/cache-manifest");
+  res.end("CACHE MANIFEST");
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

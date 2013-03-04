@@ -4,8 +4,7 @@ test( "blank", function() {
 
 test("indexdbaccessor init", function() {
    
-   var notesAccessor = new IndexedDbAccessor.NotesAccessor();
-   
+   var notesAccessor = new IndexedDbAccessor.NotesAccessor();   
    expect(0);
     
 });
@@ -21,7 +20,7 @@ asyncTest("indexdbaccessor open", function() {
     
 });
 
-asyncTest("indexdbaccessor put", function() {
+asyncTest("indexdbaccessor notes put", function() {
    
    var note = { id: UUID.generate(), title: "hi", body: "body" }
    
@@ -37,7 +36,7 @@ asyncTest("indexdbaccessor put", function() {
 });
 
 
-asyncTest("indexdbaccessor getAll", function() {
+asyncTest("indexdbaccessor notes getAll", function() {
    
    var note = { id: UUID.generate(), title: "hi", body: "body" }
    
@@ -55,7 +54,7 @@ asyncTest("indexdbaccessor getAll", function() {
    });             
 });
 
-asyncTest("indexdbaccessor removeAll", function() {
+asyncTest("indexdbaccessor notes removeAll", function() {
    
    var note = { id: UUID.generate(), title: "hi", body: "body" }
    
