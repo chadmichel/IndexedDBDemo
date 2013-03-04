@@ -48,7 +48,7 @@ var Notes;
                 self.active.title(self.activeTitle());
                 self.active.body(self.activeBody());
             }
-            self.saveCommandEngine.Put({
+            self.saveCommandEngine.PutNote({
                 id: self.active.id(),
                 title: self.active.title(),
                 body: self.active.body()    
