@@ -27,6 +27,16 @@ var Notes;
 
         self.notes = ko.observableArray([           
         ]);
+        
+        self.getAll = function() {
+            self.queryEngine.forEach(
+                function(item) {
+                    self.notes.push(new Notes.Note(null, item.title, item.body));          
+                }
+            );                    
+        };
+        
+        self.getAll();
 
         self.isSaveEnabled = ko.computed(function() {
             return (self.active.title() != self.activeTitle() || self.active.body() != self.activeBody());
