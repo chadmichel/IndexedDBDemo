@@ -6,8 +6,6 @@ var LocalSaveCommandEngine;
     
         self.PutNote = function(data) {
             
-            alert("data added");
-            
             IndexedDbAccessor.open(function () {       
              
                 var notesAccessor = new IndexedDbAccessor.NotesAccessor();
