@@ -8,12 +8,11 @@ CACHE:
 /libs/bootstrap.css
 /libs/bootstrap.js
 /libs/knockout.js
-/guid.js
 /javascripts/guid.js
 /javascripts/simplestore.js
 /javascripts/indexeddbaccessor.js
 /javascripts/localqueryengine.js
-/javascripts/localcommandengine.js
+/javascripts/localsavecommandengine.js
 /javascripts/notes.js
 /javascripts/init.js
 /javascripts/tinymcebinding.js
