@@ -1,0 +1,35 @@
+CACHE MANIFEST
+      
+# This is a comment
+
+CACHE:
+/javascripts/offline.js
+/libs/jquery.js
+/libs/bootstrap.css
+/libs/bootstrap.js
+/libs/knockout.js
+/guid.js
+/javascripts/guid.js
+/javascripts/simplestore.js
+/javascripts/indexeddbaccessor.js
+/javascripts/localqueryengine.js
+/javascripts/localcommandengine.js
+/javascripts/notes.js
+/javascripts/init.js
+/javascripts/tinymcebinding.js
+/tiny_mce/tiny_mce.js
+/tiny_mce/jquery.tinymce.js
+/tiny_mce/themes/simple/langs/en.js
+/tiny_mce/themes/simple/img/icons.gif
+/tiny_mce/themes/simple/langs/en.js
+/tiny_mce/langs/en.js
+/stylesheets/style.css
+
+
+FALLBACK:
+
+
+NETWORK:
+*
+http://*
+https://*

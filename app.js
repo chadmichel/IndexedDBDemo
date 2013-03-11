@@ -33,7 +33,7 @@ app.get('/', routes.index);
 
 app.get("/offline.appcache", function(req, res){
   res.header("Content-Type", "text/cache-manifest");
-  res.sendfile('offline1.appcache')
+  res.sendfile('offline.appcache')
 });
 
 http.createServer(app).listen(app.get('port'), function(){
