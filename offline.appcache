@@ -22,6 +22,9 @@ CACHE:
 /tiny_mce/themes/simple/img/icons.gif
 /tiny_mce/themes/simple/langs/en.js
 /tiny_mce/langs/en.js
+/tiny_mce/themes/simple/editor_template.js
+/tiny_mce/themes/simple/skins/default/ui.css
+/tiny_mce/themes/simple/skins/default/content.css
 /stylesheets/style.css
 
 
