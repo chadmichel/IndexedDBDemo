@@ -3,6 +3,8 @@
  * Module dependencies.
  */
 
+var requireDir = ('require-dir');
+
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
@@ -10,6 +12,8 @@ var express = require('express')
   , path = require('path');
 
 var app = express();
+
+var configs = requireDir("./config")
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -39,3 +43,4 @@ app.get("/offline.appcache", function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
