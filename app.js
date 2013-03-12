@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var requireDir = ('require-dir');
+var requiredir = require("requiredir")
 
 var express = require('express')
   , routes = require('./routes')
@@ -11,9 +11,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
-var app = express();
+app = express();
 
-var configs = requireDir("./config")
+var passport = require('passport'); // auth
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -24,6 +24,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
+  app.use(passport.initialize());
   app.use(express.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -32,6 +33,9 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+var configs = requiredir("./config");
+var backend = requiredir("./backend");
 
 app.get('/', routes.index);
 
@@ -44,3 +48,6 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+// configure auth
+var login = require("./login");
+login.init(app, passport);
