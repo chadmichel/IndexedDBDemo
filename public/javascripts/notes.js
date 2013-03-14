@@ -24,6 +24,7 @@ var Notes;
         self.activeTitle = ko.observable("");
         self.activeBody = ko.observable("");
         self.createMode = ko.observable(true);
+        self.showdata = ko.observable(false);
 
         self.notes = ko.observableArray([           
         ]);
@@ -77,7 +78,14 @@ var Notes;
             self.activeTitle(note.title());
             self.activeBody(note.body());            
         };
-        
+
+        self.isLoggedIn = ko.computed(function() {
+            var result = false;
+            if (self.loginStatus != null) {
+                result = self.loginStatus.isLoggedIn;
+            }
+           return result;
+        });
     };
 
 

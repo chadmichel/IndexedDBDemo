@@ -7,6 +7,7 @@ $(function() {
     var commandEngine = new LocalSaveCommandEngine.Engine(notesAccessor);
 
     var vm = new Notes.NotesVM(queryEngine, commandEngine);
+    vm.loginStatus = new LoginStatusQueryEngine.Engine();
 
     ko.applyBindings(vm);
 

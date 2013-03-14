@@ -1,5 +1,5 @@
 CACHE MANIFEST
-      
+# Version : 7
 # This is a comment
 
 CACHE:
@@ -16,6 +16,7 @@ CACHE:
 /javascripts/notes.js
 /javascripts/init.js
 /javascripts/tinymcebinding.js
+/javascripts/loginstatusqueryengine.js
 /tiny_mce/tiny_mce.js
 /tiny_mce/jquery.tinymce.js
 /tiny_mce/themes/simple/langs/en.js

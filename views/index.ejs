@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html manifest="offline.appcache" xmlns="http://www.w3.org/1999/html">
-
+<html xmlns="http://www.w3.org/1999/html">
+<!-- manifest="offline.appcache" -->
 <head>
 
 <!-- 3rd party -->
@@ -24,15 +24,17 @@
 <script src="javascripts/localqueryengine.js"></script>
 <script src="javascripts/localsavecommandengine.js"></script>
 <script src="javascripts/notes.js"></script>
+<script src="javascripts/loginstatusqueryengine.js"></script>
 <script src="javascripts/init.js"></script>
 
 <!-- offline -->
-<script src="javascripts/offline.js"></script>
-
+<!-- <script src="javascripts/offline.js"></script> -->
 
 </head>
 
 <body>
+
+    <input id="sessionid" type="hidden" />
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -61,7 +63,15 @@
       </div>
     </div>
 
-<div id="main-container" class="container-fluid">
+        <div id="login-container" class="container-fluid">
+        <br />
+        <br />
+        <br />
+            <div>Login with Facebook</div>
+
+        </div>
+
+<div id="main-container" class="container-fluid" data-bind="visible: showdata">
     <div class="row-fluid">
         <div class="span2">
             <table class="table" data-bind="foreach: notes">
@@ -90,29 +100,6 @@
         </div>
     </div>
 </div>
-
-<script>
-
-// from: http://www.html5rocks.com/en/tutorials/appcache/beginner/
-// Check if a new cache is available on page load.
-window.addEventListener('load', function(e) {
-
-  window.applicationCache.addEventListener('updateready', function(e) {
-    if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-      // Browser downloaded a new app cache.
-      // Swap it in and reload the page to get the new hotness.
-      window.applicationCache.swapCache();
-      if (confirm('A new version of this site is available. Load it?')) {
-        window.location.reload();
-      }
-    } else {
-      // Manifest didn't changed. Nothing new to server.
-    }
-  }, false);
-
-}, false);
-
-</script>
 
 </body>
 

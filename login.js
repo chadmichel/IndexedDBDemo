@@ -37,7 +37,6 @@ exports.init = function(app, passport) {
         passport.authenticate('facebook', { successRedirect: '/',
             failureRedirect: '/login' }));
 
-
     passport.serializeUser(function(user, done) {
         done(null, { id: user.id, email: user.email });
     });
