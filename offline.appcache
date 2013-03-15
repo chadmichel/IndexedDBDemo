@@ -5,6 +5,7 @@ CACHE MANIFEST
 CACHE:
 /javascripts/offline.js
 /libs/jquery.js
+/libs/jquery.cookie.js
 /libs/bootstrap.css
 /libs/bootstrap.js
 /libs/knockout.js

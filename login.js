@@ -8,7 +8,8 @@ exports.init = function(app, passport) {
     passport.use(new FacebookStrategy({
             clientID: process.env.FACEBOOK_APP_ID,
             clientSecret: process.env.FACEBOOK_APP_SECRET,
-            callbackURL: "http://localhost:3000/auth/facebook/callback"
+            callbackURL: "http://localhost:3000/auth/facebook/callback",
+            profileFields: ["id", "displayName", "email"]
         },
         function(accessToken, refreshToken, profile, done) {
 
@@ -17,9 +18,13 @@ exports.init = function(app, passport) {
             console.log("user name = " + profile.name);
             console.log("display name = " + profile.displayName);
             console.log("id = " + profile.id);
-            console.log("value = " + profile.value);
+            console.log("value = " + profile.email);
 
-            done(null, {email: profile.value});
+            var id = profile.id;
+            var name = profile.displayName;
+            var email = profile.emails[0].value;
+
+            done(null, {id: "facebook" + id, name: name, email: email});
 
         }
     ));
@@ -34,15 +39,23 @@ exports.init = function(app, passport) {
     // access was granted, the user will be logged in.  Otherwise,
     // authentication has failed.
     app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', { successRedirect: '/',
-            failureRedirect: '/login' }));
+        passport.authenticate('facebook', { failureRedirect: '/login' }),
+        function(req, res) {
+            if (req.user === null)
+                console.log("user = null");
+            else
+                console.log("user = " + req.user.name.toString() + " email = " + req.user.id);
+            res.cookie("userid", req.user.id)
+            res.redirect('/');
+        });
 
     passport.serializeUser(function(user, done) {
+        console.log("serial user");
         done(null, { id: user.id, email: user.email });
     });
 
     passport.deserializeUser(function(id, done) {
-
+        console.log("deserial user");
             done(err, {id: id, email: "chadmichel@me.com"});
 
     });

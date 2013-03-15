@@ -5,12 +5,18 @@ var LoginStatusQueryEngine;
         var self = this;
 
         self.sessionId = function() {
-            return $("#sessionid").val();
+            var sid = $.cookie("connect.sid");
+            return sid;
+        }
+
+        self.username = function() {
+            var user = $.cookie("username");
+            return user;
         }
 
         self.isLoggedIn = function() {
-            var session = $("#sessionid").val();
-            return session != null && session.length > 0;
+            var user = self.username();
+            return user != null && user.length > 0;
         }
     }
 
